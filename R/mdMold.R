@@ -1,0 +1,96 @@
+#' 模具上传任务生成生成器界面
+#'
+#' @param colTitles  主页标题
+#' @param widthRates 左右比例
+#' @param func_left 左函数
+#' @param func_right 右函数
+#' @param tabTitle 标题
+#' @param func_bottom  下面一栏
+#'
+#' @return 返回值
+#' @import tsui
+#' @export
+#'
+#' @examples
+#' mdMoldUI()
+mdMoldUI <- function(tabTitle ='模具上传',
+                     colTitles =c('操作区域','操作区域','显示区域'),
+                     widthRates =c(6,6,12),
+                     func_left = mdMoldUI_left,
+                     func_right =mdMoldUI_right,
+                     func_bottom = mdMoldUI_bottom
+) {
+
+  #三栏式设置，可以复制
+  res = tsui::uiGen3(tabTitle = tabTitle,colTitles =colTitles,widthRates = widthRates,func_left = func_left,func_right = func_right,func_bottom = func_bottom )
+  return(res)
+
+}
+
+
+
+
+
+#' 请输入文件
+#'
+#' @return 返回值
+#' @export
+#'
+#' @examples
+#' mdMoldUI_left()
+mdMoldUI_left <- function() {
+  res <- tagList(
+
+    tsui::uiTemplate(templateName = '模具模板'),
+
+    tsui::mdl_file(id = 'text_file_mdMold_upload',label ='请上传文件'),
+
+    shiny::actionButton(inputId = 'btn_mdMold_upload',label = '上传')
+  )
+
+  return(res)
+
+
+}
+
+
+#' 生成区域
+#'
+#' @return 返回值
+#' @export
+#'
+#' @examples
+#' mdMoldUI_bottom()
+mdMoldUI_right <- function() {
+  res <- tagList(
+
+
+    tsui::mdl_text2(id ='text_file_mdMold_FBillNo' ,label = '模具编码',value = 'MJ-001'),
+
+    shiny::actionButton(inputId = 'btn_mdMold_view',label = '查看'),
+
+    tsui::mdl_download_button(id = 'dl_mdMold_download',label = '下载')
+
+
+
+  )
+  return(res)
+
+}
+
+
+#' 生成区域
+#'
+#' @return 返回值
+#' @export
+#'
+#' @examples
+#' mdMoldUI_bottom()
+mdMoldUI_bottom <- function() {
+  res <- tagList(
+    tsui::uiScrollX(tsui::mdl_dataTable(id = 'mdMold_resultView',label ='结果显示' ))
+
+  )
+  return(res)
+
+}
